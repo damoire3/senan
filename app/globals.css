@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+.container {
+  max-width: 1200px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.header-font {
+  font-family: var(--font-playfair), serif;
+}
+
+body,
+p,
+span,
+button,
+input,
+textarea {
+  font-family: var(--font-roboto), serif;
+}
+
+.embla__viewport {
+  overflow: hidden;
+}
+
+.embla__container {
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+}
+
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+.nav a:hover {
+  color: #00B4D8;
+}
+
+.active-link {
+  color: #00B4D8;
+  font-weight: 600;
+}
+
+/* --- Scroll reveal (équivalent des animations fadeInUp/Left/Right) --- */
+.reveal {
+  visibility: hidden;
+}
+.reveal.is-visible {
+  visibility: visible;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+.reveal-up.is-visible {
+  animation-name: fadeInUp;
+}
+.reveal-left.is-visible {
+  animation-name: fadeInLeft;
+}
+.reveal-right.is-visible {
+  animation-name: fadeInRight;
+}
+.reveal-fade.is-visible {
+  animation-name: fadeIn;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translate3d(0, 40px, 0); }
+  to { opacity: 1; transform: translateZ(0); }
+}
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translate3d(-40px, 0, 0); }
+  to { opacity: 1; transform: translateZ(0); }
+}
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translate3d(40px, 0, 0); }
+  to { opacity: 1; transform: translateZ(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal.is-visible {
+    animation-duration: 1ms !important;
+  }
+}
+
+/* --- Effet "hover-from-left" (remplissage de couleur au survol) --- */
+.hover-sweep {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+.hover-sweep::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -101%;
+  width: 100%;
+  height: 100%;
+  background: var(--sweep-color, #00b4d8);
+  transition: all 0.6s ease;
+  z-index: -1;
+}
+.hover-sweep:hover::before,
+.hover-sweep:focus-visible::before {
+  left: 0;
+}
+
+/* --- Effet "pulse" (halo qui pulse, façon bouton play du modèle) --- */
+.pulse-ring {
+  position: relative;
+}
+.pulse-ring::before,
+.pulse-ring::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: currentColor;
+  opacity: 0.35;
+  animation: pulse-ring 2.6s ease-out infinite;
+  pointer-events: none;
+}
+.pulse-ring::after {
+  animation-delay: 1.3s;
+}
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.35;
+  }
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+
+/* --- Petite montée au survol pour les cartes --- */
+.lift-hover {
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.lift-hover:hover {
+  transform: translateY(-6px);
+}
